@@ -25,6 +25,9 @@ More technically, it's a visualization of the Kubernetes namespace based on the 
 
 ## Exercise: Creating a Project
 
+
+Render port 80: https://metrics-demo-app-metrics-demo.[[HOST_SUBDOMAIN]]-80-[[KATACODA_HOST]].environments.katacoda.com/
+
 Click the blue **Create Project** button.
 
 You should now see a page for creating your first project in the web console. Fill in the _Name_ field as `myproject`{{copy}}.
