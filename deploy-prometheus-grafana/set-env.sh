@@ -8,3 +8,4 @@ oc expose svc/metrics-demo-app
 clear
 
 echo -e "Welcome to your interactive environment. OpenShift is configured and ready to use."
+echo -e "The demo metrics application is deployed at http://$(oc get route metrics-demo-app -o jsonpath='{.spec.host}' -n metrics-demo)"
