@@ -1,7 +1,20 @@
 
-`oc process -f deploy-prometheus.yaml | oc apply -f -`{{execute}}
 
-`oc new-app grafana/grafana`{{execute}}
+First let's create a new namespace to deploy our monitoring tools.
+
+`oc new-project pad-monitoring`{{execute}}
+
+Now we need to edit the configmap in our prometheus deployment template, to scrape our demo application.
+To do that, we need to add the following section:
+```yaml
+- targets: ['http://metrics-demo-app-metrics-demo.[[HOST_SUBDOMAIN]]-80-[[KATACODA_HOST]].environments.katacoda.com']
+  labels:
+    group: 'demo-app'
+```
+`oc process -f deploy-prometheus.yaml | oc apply -n pad-monitoring -f -`{{execute}}
+
+`oc new-app grafana/grafana -n pad-monitoring`{{execute}}
+`oc expose svc/grafana -n pad-monitoring`{{execute}}
 
 This section focuses on using the web console.
 
