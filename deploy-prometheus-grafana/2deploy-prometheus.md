@@ -1,3 +1,8 @@
+
+`oc process -f deploy-prometheus.yaml | oc apply -f -`{{execute}}
+
+`oc new-app grafana/grafana`{{execute}}
+
 This section focuses on using the web console.
 
 ## Exercise: Logging in with the Web Console
