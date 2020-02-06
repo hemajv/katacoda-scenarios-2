@@ -1,3 +1,13 @@
+Next, we will deploy Grafana and connect it to our Prometheus instance, so we are able to visualize metrics better.
+
+We can just directly deploy the vanilla container image from Docker Hub using the following command:
+`oc new-app grafana/grafana -n pad-monitoring`{{execute}}
+
+Then we need to expose the service so that it is accessible outside of the cluster.
+
+`oc expose svc/grafana -n pad-monitoring`{{execute}}
+
+
 In this section, you are going to deploy the front end component of an application called **parksmap**. The web application will display an interactive map, which will be used to display the location of major national parks from all over the world.
 
 # Exercise: Deploying Your First Image

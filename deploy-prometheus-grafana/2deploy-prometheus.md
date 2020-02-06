@@ -11,10 +11,15 @@ To do that, we need to add the following section:
   labels:
     group: 'demo-app'
 ```
+
+Once we have added it to the configMap, we can go ahead and deploy it using the following command.
+
 `oc process -f deploy-prometheus.yaml | oc apply -n pad-monitoring -f -`{{execute}}
 
-`oc new-app grafana/grafana -n pad-monitoring`{{execute}}
-`oc expose svc/grafana -n pad-monitoring`{{execute}}
+To see the url for your Prometheus instance, run the following command:
+`echo -e "http://$(oc get route prometheus-demo-route -o jsonpath='{.spec.host}' -n pad-monitoring)"`{{execute}}
+
+or you can use the console to check on the Prometheus deployment.
 
 This section focuses on using the web console.
 
