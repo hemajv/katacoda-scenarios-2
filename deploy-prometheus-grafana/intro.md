@@ -1,4 +1,5 @@
-In this self paced tutorial you will learn how to use the OpenShift Container Platform to build and deploy containerized applications.
+In this tutorial you will learn how to use Prometheus to scrape and store metrics from a sample application, and then use Grafana
+to visualize the collected metrics.
 
 ## Let's get started
 
