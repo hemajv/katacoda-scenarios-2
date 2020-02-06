@@ -9,3 +9,7 @@ Then we need to expose the service so that it is accessible outside of the clust
 
 To see the url for your Grafana instance, run the following command:
 `echo -e "https://$(oc get route grafana -o jsonpath='{.spec.host}' -n pad-monitoring)"`{{execute}}
+
+The default username and password for grafana are: `admin/admin`
+
+Instructions to add Prometheus as a data source:
