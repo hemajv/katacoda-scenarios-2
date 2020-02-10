@@ -10,7 +10,7 @@
       "port": 8443
     },
     "files": [
-        "prometheus-configmap.yaml","deploy-prometheus.yaml"
+        "prometheus-configmap.yaml"
     ],
     "environment": {
         "showdashboard": true,
@@ -41,7 +41,7 @@
             "text": "finish.md"
         },
         "assets": {
-          "client": [{"file": "deploy-prometheus.yaml", "target": "/root/"}]
+          "host01": [{"file": "deploy-prometheus.yaml", "target": "/tmp/prometheus"}]
         }
     }
 }
