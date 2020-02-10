@@ -9,7 +9,7 @@ To do that, we need to add the following section:
 
 Open the deployment template in the editor:
 
-<pre class="file" data-filename="prometheus.yml" data-target="replace">
+<pre class="file" data-filename="prometheus-configmap.yaml" data-target="replace">
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -30,7 +30,7 @@ data:
 
 The second half defines the servers and ports that Prometheus should scrape data from. In this example, we have defined two targets running on different ports.
 
-<pre class="file" data-filename="prometheus.yml">
+<pre class="file" data-filename="prometheus-configmap.yaml">
           - targets: ['metrics-demo-app-metrics-demo.[[HOST_SUBDOMAIN]]-80-[[KATACODA_HOST]].environments.katacoda.com']
             labels:
               group: 'pad'

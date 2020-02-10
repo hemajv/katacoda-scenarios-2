@@ -10,11 +10,11 @@
       "port": 8443
     },
     "files": [
-        "prometheus.yml"
+        "prometheus-configmap.yaml","deploy-prometheus.yaml"
     ],
     "environment": {
         "showdashboard": true,
-        "dashboards": [{"name": "Console", "href": "https://console-openshift-console-[[HOST_SUBDOMAIN]]-443-[[KATACODA_HOST]].environments.katacoda.com"}],
+        "dashboard": "Dashboard",
         "uilayout": "editor-terminal",
         "uisettings": "yaml",
         "uieditorpath": "/tmp/prometheus",
@@ -41,7 +41,7 @@
             "text": "finish.md"
         },
         "assets": {
-          "client": [{"file": "deploy-prometheus.yaml", "target": "/tmp/prometheus"}]
+          "client": [{"file": "deploy-prometheus.yaml", "target": "/root/"}]
         }
     }
 }
