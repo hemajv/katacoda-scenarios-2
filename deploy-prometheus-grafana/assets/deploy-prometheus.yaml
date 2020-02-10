@@ -82,19 +82,19 @@ objects:
         kind: Service
         name: ${APPLICATION_NAME}-service
 
-  - apiVersion: v1
-    kind: ConfigMap
-    metadata:
-      name: ${APPLICATION_NAME}
-    data:
-      prometheus.yml: |
-        global:
-          external_labels:
-            monitor: prometheus
-        scrape_configs:
-          - job_name: 'prometheus'
-
-            static_configs:
-              - targets: ['localhost:9090']
-                labels:
-                  group: 'prometheus'
+  # - apiVersion: v1
+  #   kind: ConfigMap
+  #   metadata:
+  #     name: ${APPLICATION_NAME}
+  #   data:
+  #     prometheus.yml: |
+  #       global:
+  #         external_labels:
+  #           monitor: prometheus
+  #       scrape_configs:
+  #         - job_name: 'prometheus'
+  #
+  #           static_configs:
+  #             - targets: ['localhost:9090']
+  #               labels:
+  #                 group: 'prometheus'

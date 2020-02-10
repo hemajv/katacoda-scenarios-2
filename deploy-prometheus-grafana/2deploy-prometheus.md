@@ -8,16 +8,30 @@ Now we need to edit the configmap in our prometheus deployment template, to scra
 To do that, we need to add the following section:
 
 Open the deployment template in the editor:
-`/root/deploy-prometheus.yaml`{{open}}
 
-`deploy-prometheus.yaml`{{open}}
+<pre class="file" data-filename="prometheus-configmap.yaml" data-target="replace">
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-demo
+data:
+  prometheus.yml: |
+    global:
+      external_labels:
+        monitor: prometheus
+    scrape_configs:
+      - job_name: 'prometheus'
 
-`assets/deploy-prometheus.yaml`{{open}}
+        static_configs:
+          - targets: ['localhost:9090']
+            labels:
+              group: 'prometheus'
+</pre>
 
-<pre class="file">
-- targets: ['http://metrics-demo-app-metrics-demo.[[HOST_SUBDOMAIN]]-80-[[KATACODA_HOST]].environments.katacoda.com']
-  labels:
-    group: 'demo-app'
+<pre class="file" data-filename="prometheus-configmap.yaml">
+          - targets: ['metrics-demo-app-metrics-demo.[[HOST_SUBDOMAIN]]-80-[[KATACODA_HOST]].environments.katacoda.com']
+            labels:
+              group: 'pad'
 </pre>
 
 Once we have added it to the configMap, we can go ahead and deploy it using the following command.
