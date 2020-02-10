@@ -36,11 +36,13 @@ The second half defines the servers and ports that Prometheus should scrape data
               group: 'pad'
 </pre>
 
-Once we have added it to the configMap, we can go ahead and deploy it using the following command.
+Once we have added it to the configMap, we can go ahead and create this configmap in our namespace
+`oc create -f prometheus-configmap.yaml -n pad-monitoring`
 
+and deploy it using the following command.
 `oc process -f deploy-prometheus.yaml | oc apply -n pad-monitoring -f -`{{execute}}
 
 To see the url for your Prometheus instance, run the following command:
 `echo -e "http://$(oc get route prometheus-demo-route -o jsonpath='{.spec.host}' -n pad-monitoring)"`{{execute}}
 
-or you can use the console to check on the Prometheus deployment.
+or you can use the dashboard to check on the Prometheus deployment.
