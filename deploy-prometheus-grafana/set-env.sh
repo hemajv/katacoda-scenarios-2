@@ -1,12 +1,13 @@
 #Helps to address error: x509: certificate signed by unknown authority
 launch.sh
 curl -LO https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem > /dev/null 2>&1
+mkdir -p /tmp/prometheus
 oc login -u developer -p developer https://master:8443 --certificate-authority=lets-encrypt-x3-cross-signed.pem --insecure-skip-tls-verify=true > /dev/null 2>&1
 # deploy the demo metrics app
 oc new-project metrics-demo
 oc new-app quay.io/4n4nd/metrics-demo-app:workshop
 oc expose svc/metrics-demo-app
 clear
-
+cd /tmp/prometheus
 echo -e "Welcome to your interactive environment. OpenShift is configured and ready to use."
 echo -e "The demo metrics application is deployed at: \n http://$(oc get route metrics-demo-app -o jsonpath='{.spec.host}' -n metrics-demo)"
