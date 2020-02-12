@@ -23,18 +23,6 @@
         }, {
             "title": "Topic 3 - Accessing the Web Console",
             "text": "03-accessing-the-web-console.md"
-        }, {
-            "title": "Topic 4 - Building the Notebook Image",
-            "text": "04-building-the-notebook-image.md"
-        }, {
-            "title": "Topic 5 - Deploying the Notebook Image",
-            "text": "05-deploying-the-notebook-image.md"
-        }, {
-            "title": "Topic 6 - Deleting the Jupyter Notebook",
-            "text": "06-deleting-the-jupyter-notebook.md"
-        }, {
-            "title": "Topic 7 - Build and Deploy the Notebooks",
-            "text": "07-build-and-deploy-the-notebooks.md"
         }],
         "intro": {
             "courseData": "env-init.sh",
