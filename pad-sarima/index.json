@@ -15,10 +15,10 @@
     },
     "details": {
         "steps": [{
-            "title": "Topic 1 - Loading the Notebook Images",
+            "title": "Using SARIMA model to forecast timeseries metrics",
             "text": "01-loading-the-notebook-images.md"
         }, {
-            "title": "Topic 2 - Loading the Notebook Templates",
+            "title": "Using a Jupyter Notebook to play with the SARIMA model",
             "text": "02-loading-the-notebook-templates.md"
         }, {
             "title": "Topic 3 - Accessing the Web Console",
