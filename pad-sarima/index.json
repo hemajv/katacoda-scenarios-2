@@ -6,7 +6,8 @@
     "difficulty": "beginner",
     "time": "15-20 minutes",
     "backend": {
-        "imageid": "openshift-4-2"
+      "imageid": "openshift-3-11",
+      "port": 8443
     },
     "environment": {
         "showdashboard": true,
