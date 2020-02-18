@@ -5,7 +5,6 @@ ssh root@host01 "chmod 0777 /data/pv-*; chcon -t svirt_sandbox_file_t /data/pv-*
 ssh root@host01 "oc create -f https://raw.githubusercontent.com/4n4nd/katacoda-scenarios/master/prometheus-api-client/assets/volumes.json --as system:admin"
 # set up dummy metrics in PVC
 ssh root@host01 "oc process -f https://raw.githubusercontent.com/4n4nd/katacoda-scenarios/master/prometheus-api-client/assets/generate-metrics.yaml | oc apply -n myproject -f - --as system:admin"
-# wait for metrics to be generated
-sleep 10
+
 # set up Prometheus
 ssh root@host01 "oc process -f https://raw.githubusercontent.com/4n4nd/katacoda-scenarios/master/prometheus-api-client/assets/deploy-prometheus.yaml | oc apply -n myproject -f - --as system:admin"
