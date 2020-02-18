@@ -28,7 +28,7 @@ objects:
           containers:
             - name: "prometheus-generate-data"
               command: ["/bin/sh"]
-              args: ["-c", "go get -u github.com/jjneely/stuff/cmd/historygen; cd ~/go/src/github.com/jjneely/stuff/cmd/historygen; go build; ./historygen -c 10 -o /data"]
+              args: ["-c", "go get -u github.com/jjneely/stuff/cmd/historygen; cd /go/src/github.com/jjneely/stuff/cmd/historygen; go build; ./historygen -c 10 -o /data"]
               image: "golang:1.13.8"
               imagePullPolicy: IfNotPresent
               env:
