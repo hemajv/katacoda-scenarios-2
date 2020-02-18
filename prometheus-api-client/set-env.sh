@@ -9,18 +9,19 @@ curl https://raw.githubusercontent.com/jupyter-on-openshift/jupyter-notebooks/2.
 curl https://raw.githubusercontent.com/jupyter-on-openshift/jupyter-notebooks/2.4.0/templates/notebook-quickstart.json | sed -e 's/"Redirect"/"Allow"/' | oc apply -f - -n myproject
 curl https://raw.githubusercontent.com/jupyter-on-openshift/jupyter-notebooks/2.4.0/templates/notebook-workspace.json | sed -e 's/"Redirect"/"Allow"/' | oc apply -f - -n myproject
 
+ls
 # set up PVs
 oc create -f ~/volumes.json --as system:admin #> /dev/null 2>&1
 
 # set up PVC with generated metrics
-oc process -f ~/generate-metrics.yaml | oc apply -n myproject -f -
+oc process -f ~/generate-metrics.yaml | oc apply -n myproject -f - --as system:admin
 
 # set up Notebooks
 oc process notebook-builder -p GIT_REPOSITORY_URL=https://github.com/hemajv/prometheus-anomaly-detection-workshop.git -p CONTEXT_DIR=source | oc apply -f - -n myproject
 oc process notebook-deployer -p NOTEBOOK_IMAGE=custom-notebook:latest -p NOTEBOOK_PASSWORD=secret | oc apply -f - -n myproject
 
 # set up Prometheus
-oc process -f ~/deploy-prometheus.yaml | oc apply -n myproject -f -
+oc process -f ~/deploy-prometheus.yaml | oc apply -n myproject -f - --as system:admin
 sleep 5
 oc logs bc/custom-notebook -f
 echo -e "-------------------------------------------"
