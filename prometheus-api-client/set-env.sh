@@ -1,4 +1,7 @@
-oc login -u developer -p developer
+launch.sh
+curl -LO https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem > /dev/null 2>&1
+oc login -u developer -p developer --certificate-authority=lets-encrypt-x3-cross-signed.pem --insecure-skip-tls-verify=true > /dev/null 2>&1
+
 oc new-project myproject
 curl https://raw.githubusercontent.com/jupyter-on-openshift/jupyter-notebooks/2.4.0/image-streams/s2i-minimal-notebook.json | oc apply -f - -n myproject
 curl https://raw.githubusercontent.com/jupyter-on-openshift/jupyter-notebooks/2.4.0/templates/notebook-builder.json | sed -e 's/"Redirect"/"Allow"/' | oc apply -f - -n myproject
@@ -23,3 +26,4 @@ oc logs bc/custom-notebook -f
 echo -e "-------------------------------------------"
 echo -e "The environment should be ready in a few seconds"
 echo -e "The url to access the Jupyter Notebooks is: \n http://$(oc get route custom-notebook -o jsonpath='{.spec.host}' -n myproject)"
+echo -e "Prometheus Route: http://$(oc get route prometheus-demo-route -o jsonpath='{.spec.host}' -n myproject)"
