@@ -10,7 +10,7 @@ curl https://raw.githubusercontent.com/jupyter-on-openshift/jupyter-notebooks/2.
 curl https://raw.githubusercontent.com/jupyter-on-openshift/jupyter-notebooks/2.4.0/templates/notebook-workspace.json | sed -e 's/"Redirect"/"Allow"/' | oc apply -f - -n myproject
 
 # set up PVs
-oc create -f ~/volumes.json --as system:admin > /dev/null 2>&1
+oc create -f ~/volumes.json --as system:admin #> /dev/null 2>&1
 
 # set up PVC with generated metrics
 oc process -f ~/generate-metrics.yaml | oc apply -n myproject -f -
