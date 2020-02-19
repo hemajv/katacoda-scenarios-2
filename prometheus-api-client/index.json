@@ -18,14 +18,11 @@
     },
     "details": {
         "steps": [{
-            "title": "Using SARIMA model to forecast timeseries metrics",
+            "title": "More about Prometheus",
             "text": "01-loading-the-notebook-images.md"
         }, {
-            "title": "Using a Jupyter Notebook to play with the SARIMA model",
+            "title": "Accessing the workshop environment",
             "text": "02-loading-the-notebook-templates.md"
-        }, {
-            "title": "Topic 3 - Accessing the Web Console",
-            "text": "03-accessing-the-web-console.md"
         }],
         "intro": {
             "courseData": "env-init.sh",
