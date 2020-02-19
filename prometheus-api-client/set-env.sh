@@ -10,13 +10,13 @@ curl https://raw.githubusercontent.com/jupyter-on-openshift/jupyter-notebooks/2.
 curl https://raw.githubusercontent.com/jupyter-on-openshift/jupyter-notebooks/2.4.0/templates/notebook-workspace.json | sed -e 's/"Redirect"/"Allow"/' | oc apply -f - -n myproject
 
 # set up Notebooks
-oc process notebook-builder -p GIT_REPOSITORY_URL=https://github.com/hemajv/prometheus-anomaly-detection-workshop.git -p CONTEXT_DIR=source | oc apply -f - -n myproject
+oc process notebook-builder -p GIT_REPOSITORY_URL=https://github.com/hemajv/prometheus-anomaly-detection-workshop.git -p CONTEXT_DIR=source/prometheus-api-client | oc apply -f - -n myproject
 oc process notebook-deployer -p NOTEBOOK_IMAGE=custom-notebook:latest -p NOTEBOOK_PASSWORD=secret | oc apply -f - -n myproject
-
+clear
 until [ "$(oc get job prometheus-generate-data -o jsonpath='{.status.succeeded}' -n myproject)" = "1" ];
 do
   echo -e "Waiting for metrics data to be generated..."
-  sleep 5
+  sleep 10
 done
 # set up Prometheus
 echo -e "Metric data generated, Setting up Prometheus"
