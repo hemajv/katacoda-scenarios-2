@@ -19,7 +19,7 @@ do
   sleep 5
 done
 # set up Prometheus
-echo -r "Metric data generated, Setting up Prometheus"
+echo -e "Metric data generated, Setting up Prometheus"
 oc rollout latest prometheus-demo
 
 
