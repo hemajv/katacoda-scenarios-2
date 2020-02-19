@@ -24,7 +24,7 @@ oc rollout latest prometheus-demo
 
 
 oc logs bc/custom-notebook -f
-echo -e "-------------------------------------------"
+clear
 echo -e "The environment should be ready in a few seconds"
-echo -e "The url to access the Jupyter Notebooks is: \n http://$(oc get route custom-notebook -o jsonpath='{.spec.host}' -n myproject)"
-echo -e "Prometheus Route: http://$(oc get route prometheus-demo-route -o jsonpath='{.spec.host}' -n myproject)"
+echo -e "The url to access the Jupyter Notebooks is: \n http://$(oc get route custom-notebook -o jsonpath='{.spec.host}' -n myproject) \n\n"
+echo -e "Prometheus Console is available at: \n http://$(oc get route prometheus-demo-route -o jsonpath='{.spec.host}' -n myproject)"
