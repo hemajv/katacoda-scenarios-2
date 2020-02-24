@@ -9,11 +9,15 @@
       "imageid": "openshift-3-11",
       "port": 8443
     },
+    "files": [
+        "my-odh-cr.yaml"
+    ],
     "environment": {
         "showdashboard": true,
         "dashboard": "Dashboard",
         "uilayout": "editor-terminal",
         "uisettings": "yaml",
+        "uieditorpath": "/root/opendatahub-operator",
         "hideintro": false,
         "hidefinish": false
     },
