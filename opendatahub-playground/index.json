@@ -12,7 +12,8 @@
     "environment": {
         "showdashboard": true,
         "dashboard": "Dashboard",
-        "uilayout": "terminal",
+        "uilayout": "editor-terminal",
+        "uisettings": "yaml",
         "hideintro": false,
         "hidefinish": false
     },

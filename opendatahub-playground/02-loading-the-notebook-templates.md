@@ -1,12 +1,26 @@
-The jupyter notebooks to play with this model are available here:
+Once the opendatahub operator is deployed, we need to create a `OpenDataHub` Custom Resource that
+tells the operator which tools to deploy.
 
-http://custom-notebook-myproject.[[HOST_SUBDOMAIN]]-80-[[KATACODA_HOST]].environments.katacoda.com/
 
-You will need a password to access the environment.
-The password is `secret`{{copy}}
+<pre class="file" data-filename="my-odh-cr.yaml" data-target="replace">
+apiVersion: opendatahub.io/v1alpha1
+kind: OpenDataHub
+metadata:
+  name:my-odh-cr
+spec:
+  aicoe-jupyterhub:
+    odh_deploy: false
+  argo:
+    odh_deploy: true
+  monitoring:
+    enable_pushgateway: false
+    odh_deploy: true
+  spark-operator:
+    odh_deploy: false
+</pre>
 
-The notebook is called: `Introduction_Prometheus_API_Client.ipynb`
+Once we have enabled all the tools we need to be deployed in the above Custom Resource,
+we will create it using the `oc` client.
 
-The Prometheus console can be accessed using the following url:
-
-http://prometheus-demo-route-myproject.[[HOST_SUBDOMAIN]]-80-[[KATACODA_HOST]].environments.katacoda.com/
+We can run the following command to do so:
+`oc apply -f my-odh-cr.yaml -n opendatahub --as system:admin`{{execute}}
