@@ -1,46 +1,40 @@
-### What is SARIMA?
-Autoregressive Integrated Moving Average, or ARIMA, is one of the most widely used forecasting methods for univariate time series data forecasting. Although this method can handle data with a trend, it does not support time series with a seasonal component i.e. time series with a repeating cycle. An extension to ARIMA that supports the direct modeling of the seasonal component of the series is called SARIMA.
+As we saw in the previous scenario, Prometheus metrics are time series data identified by metric name and key/value pairs. With the increased amount of metrics flowing in it is getting harder to see the signals within the noise. The current state of the art is to graph out metrics on dashboards and alert on thresholds. However, we can leverage machine learning algorithms to perform time series forecasting and predict an unusual behavior or pattern in the metrics. The predicted values from the model can be compared with the actual metric values and if they differ from the default threshold values, we can flag it as an anomaly.
 
-SARIMA adds three new hyperparameters to specify the autoregression (AR), differencing (I) and moving average (MA) for the seasonal component of the series, as well as an additional parameter for the period of the seasonality.
+## What is Time Series Forecasting?
+A time series is a sequence of observations taken sequentially in time. Time series adds an explicit order dependence between observations: a time dimension. This additional dimension is both a constraint and a structure that provides a source of additional information.
 
-### What are hyperparameters?
-They are simply the very "knobs" one "turns" when building/tuning a statistical learning model. A model hyperparameter is a configuration that is external to the model and whose value cannot be estimated from data. These hyperparametrs effect the speed and quality of the model training process. Different model training algorithms require different hyperparameters, some simple algorithms (such as ordinary least squares regression) require none. Given these hyperparameters, the training algorithm learns the parameters from the data.
+We have different goals depending on whether we are interested in understanding a dataset or making predictions.
+Making predictions about the future is called extrapolation in the classical statistical handling of time series data. More modern fields focus on the topic and refer to it as time series forecasting. Forecasting involves taking models fit on historical data and using them to predict future observations. An important distinction in forecasting is that the future is completely unavailable and must only be estimated from what has already happened. The skill of a time series forecasting model is determined by its performance at predicting the future. This is often at the expense of being able to explain why a specific prediction was made, confidence intervals and even better understanding the underlying causes behind the problem.
 
-We cannot know the best value for a model hyperparameter on a given problem. We may use rules of thumb, copy values used on other problems, or search for the best value by trial and error.
+## Components of Time Series
+Some important components of time series are:
+1. **Level** - The baseline value for the series if it were a straight line
+2. **Trend** - The optional and often linear increasing or decreasing behavior of the series over time
+3. **Seasonality** - The optional repeating patterns or cycles of behavior over time
+4. **Noise** - The optional variability in the observations that cannot be explained by the model
 
-When a machine learning algorithm is tuned for a specific problem, then you are tuning the hyperparameters of the model or order to discover the parameters of the model that result in the most skillful predictions.
+All time series have a level, most have noise, and the trend and seasonality are optional. Assumptions can be made about these components both in behavior and in how they are combined, which allows them to be modeled using traditional statistical methods. These components may also be the most effective way to make predictions about future values, but not always
 
-### How to configure SARIMA?
-Configuring a SARIMA requires selecting hyperparameters for both the trend and seasonal elements of the series. There are three **trend** elements that require configuration. These are the ones that are configured in the standard ARIMA model.
+## Concerns of Forecasting
+When forecasting, it is important to understand your goal and ask lots of questions to help zoom in on the specifics of your predictive modeling problem. For example:
+* *How much data do you have available and are you able to gather it all together?*
+* *What is the time horizon of predictions that is required? Short, medium or long term?* 
+* *Can forecasts be updated frequently over time or must they be made once and remain static?*
+* *At what temporal frequency are forecasts required?*
 
-* **p** - Trend autoregression order (AR part)
+Time series data often requires cleaning, scaling, and even transformation.
 
- - *It allows to incorporate the effect of past values into our model. Intuitively, this would be similar to stating that it is likely to be warm tomorrow if it has been warm the past 3 days.*
+For example:
 
-* **d** - Trend difference order (I part)
+* **Frequency** - Perhaps data is provided at a frequency that is too high to model or is unevenly spaced through time requiring resampling for use in some models
+* **Outliers** - Perhaps there are corrupt or extreme outlier values that need to be identified and handled
+* **Missing** - Perhaps there are gaps or missing data that need to be interpolated or imputed
 
- - *It is the number of nonseasonal differences needed for stationarity. Intuitively, this would be similar to stating that it is likely to be same temperature tomorrow if the difference in temperature in the last three days has been very small.*
+## SARIMA model for Time Series Forecasting
+In this notebook, we will explore how to train a SARIMA (Seasonal AutoRegressive Integrated Moving Average) model for predicting anomalies on sample metric data. (S)ARIMA models are among the most widely used approaches for time series forecasting. In an **AutoRegressive** model the forecasts correspond to a linear combination of past values of the variable. In a **Moving Average** model the forecasts correspond to a linear combination of past forecast errors.
 
-* **q** - Trend moving average order (MA part)
+Basically, the ARIMA models combine these two approaches. Since they require the time series to be stationary, differencing (Integrating) the time series may be a necessary step, i.e. considering the time series of the differences instead of the original one.
 
- - *It is the number of lagged forecast errors in the prediction equation. This allows us to set the error of our model as a linear combination of the error values observed at previous time points in the past.*
+The **SARIMA** model (Seasonal ARIMA) extends the ARIMA by adding a linear combination of seasonal past values and/or forecast errors.
 
-There are four **seasonal** elements that are not part of ARIMA that must be configured; they are:
-
-* **P**: Seasonal autoregressive order.
-* **D**: Seasonal difference order.
-* **Q**: Seasonal moving average order.
-* **m**: The number of time steps for a single seasonal period.
-
-The Seasonal portion `(P, D, Q)m` has the same structure as the non-seasonal parts. It may — but does not have to include — an AR factor, an MA factor, and/or an I factor. In this part of the model, all of these factors operate across the number of period `(m)` in your season. This seasonality is a regular pattern of changes that repeats over `m` time periods. E.g. If there is a seasonal factor of 3 over a time series of monthly data, the pattern repeats every quarter.
-
-Put these all together and you get a `SARIMA (p, d, q) x (P, D, Q)m` which is what we’re looking to build.
-
-The exact model we’ll be using from the python package `statsmodels` is the `SARIMAX`, where `X` is the use of an exogenous explanatory variable (the X part of SARIMAX). We’re not going to get into adding exogenous variables to our model, so you can ignore this for now. The default will be `none` when we run the model as we don't have any extra variable to include at the moment.
-
-Together, the notation for a SARIMA model is specified as:
-
-```
-SARIMAX(order=(p,d,q), seasonal_order=(P,D,Q,m))
-```
-Source: http://www.statsmodels.org/dev/generated/statsmodels.tsa.statespace.sarimax.SARIMAX.html
+Let us now proceed to the notebook and understand all the necessary steps involved while solving a machine learning problem!
