@@ -1,0 +1,27 @@
+{
+  "title": "Workshop: Prometheus Anomaly Detection",
+  "description": "Detecting anomalies on prometheus time-series metrics",
+  "courses": [
+    {
+      "pathway_id": "4n4nd",
+      "title": "Intro to Prometheus and Grafana on OpenShift",
+      "id": "deploy-prometheus-grafana",
+      "course_id": "deploy-prometheus-grafana",
+      "description": ""
+    },
+    {
+      "pathway_id": "4n4nd",
+      "title": "Playing with the Prometheus API Client",
+      "id": "prometheus-api-client",
+      "course_id": "prometheus-api-client",
+      "description": ""
+    },
+    {
+      "pathway_id": "4n4nd",
+      "title": "Predicting time-series metrics using SARIMA model",
+      "id": "pad-sarima",
+      "course_id": "pad-sarima",
+      "description": ""
+    }
+  ]
+}

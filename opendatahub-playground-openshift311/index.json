@@ -1,6 +1,6 @@
 {
     "icon": "fa-openshift",
-    "title": "Playing with the Prometheus API Client",
+    "title": "OpenDataHub Playground OpenShift 3.11",
     "description": "",
     "pathwayTitle": "OpenShift",
     "difficulty": "beginner",
@@ -9,19 +9,24 @@
       "imageid": "openshift-3-11",
       "port": 8443
     },
+    "files": [
+        "my-odh-cr.yaml"
+    ],
     "environment": {
         "showdashboard": true,
         "dashboard": "Dashboard",
-        "uilayout": "terminal",
+        "uilayout": "editor-terminal",
+        "uisettings": "yaml",
+        "uieditorpath": "/root/opendatahub-operator",
         "hideintro": false,
         "hidefinish": false
     },
     "details": {
         "steps": [{
-            "title": "More about Prometheus",
+            "title": "More about the OpenDataHub Operator",
             "text": "01-loading-the-notebook-images.md"
         }, {
-            "title": "Accessing the workshop environment",
+            "title": "Creating a ODH CR",
             "text": "02-loading-the-notebook-templates.md"
         }, {
             "title": "Accessing the workshop environment",
@@ -34,12 +39,6 @@
         },
         "finish": {
             "text": "finish.md"
-        },
-        "assets": {
-          "host01": [{"file": "deploy-prometheus.yaml", "target": "~/"},
-                     {"file": "volumes.json", "target": "~/"},
-                     {"file": "generate-metrics.yaml", "target": "~/"}
-                    ]
         }
     }
 }
